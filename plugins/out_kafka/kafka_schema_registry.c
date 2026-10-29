@@ -544,8 +544,11 @@ static int schema_registry_fetch(struct flb_out_kafka *ctx, const char *subject,
             }
         }
         else {
-            flb_plg_warn(ctx->ins, "Schema Registry request failed: transport=%d HTTP=%d",
-                         ret, client->resp.status);
+          flb_plg_warn(ctx->ins,
+                       "Schema Registry request failed: transport=%d HTTP=%d body=%s",
+                       ret,
+                       client->resp.status,
+                       client->resp.payload);
             ret = FLB_RETRY;
         }
         flb_http_client_destroy(client);
